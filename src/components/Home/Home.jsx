@@ -1,4 +1,5 @@
 import style from './Home.module.scss'
+import myLogo from '../../assets/my-logo.png'
 import logo from '../../assets/logo.png'
 import menu from '../../assets/menu.png'
 import Menu from '../../components/Menu/Menu'
@@ -14,6 +15,11 @@ const Home = ({ isOpen, openMenu }) => {
 				</div>
 			</div>
 			{isOpen && <Menu isOpen={isOpen} openMenu={openMenu} />}
+
+
+			<div className={style.logo}>
+				<img src={myLogo} alt='my logo' />
+			</div>
 		</div>
 	)
 }

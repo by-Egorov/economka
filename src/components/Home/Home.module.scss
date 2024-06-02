@@ -1,4 +1,5 @@
 .container {
+	height: 100vh;
 	position: relative;
 	padding: 10px;
 	z-index: 1;
@@ -19,5 +20,16 @@ img {
 	}
 	&__menu {
 		cursor: pointer;
+	}
+}
+
+.logo {
+	position: absolute;
+	right: 0;bottom: 0;
+	opacity: .29;
+	pointer-events: none;
+	& img {
+		width: 130px;
+		height: 55px;
 	}
 }

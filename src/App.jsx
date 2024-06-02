@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './components/Home/Home'
-import myLogo from './assets/my-logo.png'
 import About from './components/About/About'
 import Profile from './components/Profile/Profile'
 const App = () => {
@@ -26,9 +25,6 @@ const App = () => {
 				/>
 			</Routes>
 
-			<div className='logo'>
-				<img src={myLogo} alt='my logo' />
-			</div>
 		</div>
 	)
 }

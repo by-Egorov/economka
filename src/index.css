@@ -16,14 +16,4 @@
 	
 }
 
-.logo {
-	position: absolute;
-	right: 55px;
-	bottom: 0;
-	opacity: .29;
-	pointer-events: none;
-	& img {
-		width: 130px;
-		height: 55px;
-	}
-}
+
