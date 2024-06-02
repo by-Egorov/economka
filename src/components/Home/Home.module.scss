@@ -1,0 +1,23 @@
+.container {
+	position: relative;
+	padding: 10px;
+	z-index: 1;
+}
+
+img {
+	width: 42px;
+	height: 42px;
+}
+
+.header {
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	&__logo {
+		padding: 0 10px;
+	}
+	&__menu {
+		cursor: pointer;
+	}
+}
