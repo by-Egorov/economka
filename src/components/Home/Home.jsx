@@ -1,13 +1,8 @@
-import React, { useState } from 'react'
 import style from './Home.module.scss'
 import logo from '../../assets/logo.png'
 import menu from '../../assets/menu.png'
 import Menu from '../../components/Menu/Menu'
-const Home = () => {
-	const [isOpen, setIsOpen] = useState(false)
-	const openMenu = () => {
-		setIsOpen(!isOpen)
-	}
+const Home = ({ isOpen, openMenu }) => {
 	return (
 		<div className={style.container}>
 			<div className={style.header}>

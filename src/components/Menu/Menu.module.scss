@@ -12,7 +12,7 @@
 }
 
 .header {
-	padding: 10px;
+
 
 	&__back_to_menu {
 		cursor: pointer;
@@ -22,4 +22,41 @@
 .content {
 	height: 100vh;
 	overflow: auto;
+	display: flex;
+	justify-content: center;
+
+	&__menu {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		font-size: 24px;
+		list-style: none;
+
+		&_item {
+			& a {
+				position: relative;
+				color: #484848;
+				text-decoration: none;
+				cursor: pointer;
+
+				&::before {
+					content: '';
+					position: absolute;
+					left: 0;
+					bottom: -5px;
+					width: 0;
+					height: 1.5px;
+					background-color: #333;
+				}
+
+				&:hover::before {
+					width: 100%;
+				}
+
+				&::before {
+					transition: width 0.5s;
+				}
+			}
+		}
+	}
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import {Link} from 'react-router-dom'
 import style from './Menu.module.scss'
 import arrow from '../../assets/arrow-right.png'
 const Menu = ({ openMenu, isOpen }) => {
@@ -10,10 +10,14 @@ const Menu = ({ openMenu, isOpen }) => {
 				</div>
 			</div>
 			<div className={style.content}>
-				hello
+				<ul className={style.content__menu}>
+					<li className={style.content__menu_item}><Link onClick={openMenu}>Home</Link></li>
+					<li className={style.content__menu_item}><Link to='/profile'>Profile</Link></li>
+					<li className={style.content__menu_item}><Link to='/about'>About</Link></li>
+				</ul>
 			</div>
 		</div>
 	)
 }
-
+ 
 export default Menu
