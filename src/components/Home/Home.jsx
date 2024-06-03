@@ -3,6 +3,7 @@ import myLogo from '../../assets/my-logo.png'
 import logo from '../../assets/logo.png'
 import menu from '../../assets/menu.png'
 import Menu from '../../components/Menu/Menu'
+import Content from '../Content/Content'
 const Home = ({ isOpen, openMenu }) => {
 	return (
 		<div className={style.container}>
@@ -16,6 +17,7 @@ const Home = ({ isOpen, openMenu }) => {
 			</div>
 			{isOpen && <Menu isOpen={isOpen} openMenu={openMenu} />}
 
+			<Content/>
 
 			<div className={style.logo}>
 				<img src={myLogo} alt='my logo' />
