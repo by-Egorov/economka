@@ -17,6 +17,9 @@ const	option = {
 				saveAsImage: { show: true }
 			}
 		},
+		legend: {
+			top: 'bottom'
+		},
 		series: [
 			{
 				name: 'Расходы',
