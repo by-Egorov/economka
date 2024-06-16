@@ -1,16 +1,39 @@
 import style from './Content.module.scss'
 import ReactECharts from 'echarts-for-react'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { $authHost } from '../../axios.js'
+const Content = ({ user }) => {
+	const [selectedArrayName, setSelectedArrayName] = useState('')
+	const { register, handleSubmit, reset } = useForm()
 
-const Content = () => {
-	let item1 = 2.276
-	let item2 = 0
-	let item3 = 0
-	let item4 = 0
-	let item5 = 5
-	let item6 = 0
-	let num = 1276
-	const res = num / 100 * 1
-	console.log(res / 10)
+	const dataInfo = [
+		{ value: 'me', displayName: 'Я' },
+		{ value: 'products', displayName: 'Продукты' },
+		{ value: 'car', displayName: 'Машина' },
+		{ value: 'wife', displayName: 'Жена' },
+		{ value: 'things', displayName: 'Вещи' },
+		{ value: 'daughter', displayName: 'Дочь' },
+	]
+
+	const handleArrayChange = event => {
+		setSelectedArrayName(event.target.value)
+	}
+	const onSubmit = async formData => {
+		try {
+			const { value } = formData
+
+			const response = await $host.post(`/data/price/${data._id}`, {
+				arrayName: selectedArrayName,
+				value: parseInt(value, 10), // Преобразуем значение в число
+			})
+			console.log(response.data)
+			reset()
+		} catch (error) {
+			console.warn(error)
+		}
+	}
+
 	const option = {
 		tooltip: {
 			trigger: 'item',
@@ -59,12 +82,12 @@ const Content = () => {
 					},
 				},
 				data: [
-					{ value: item1, name: 'Продукты' },
-					{ value:  item2, name: 'Вещи' },
-					{ value:  item3, name: 'Машина' },
-					{ value:  item4, name: 'Бурундук' },
-					{ value:  item5, name: 'Бобряша' },
-					{ value:  item6, name: 'Суслик' },
+					{ value: 11, name: 'Продукты' },
+					{ value: 12, name: 'Вещи' },
+					{ value: 13, name: 'Машина' },
+					{ value: 14, name: 'Бурундук' },
+					{ value: 15, name: 'Бобряша' },
+					{ value: 16, name: 'Суслик' },
 				],
 				height: '50%',
 				width: '50%',
@@ -78,16 +101,44 @@ const Content = () => {
 		<div className={style.container}>
 			<ReactECharts option={option} className={style.canvas} />
 
-			<h3>Список: </h3>
+			<h3>Добавить </h3>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<select
+					{...register('arrayName')}
+					value={selectedArrayName}
+					onChange={handleArrayChange}
+					className={style.select}
+				>
+					<option value='' disabled>
+						Выбрать категорию
+					</option>
+					{dataInfo.map((item, index) => (
+						<option key={index} value={item.value}>
+							{item.displayName}
+						</option>
+					))}
+				</select>
+				<input
+					type='number'
+					placeholder='Введите значение'
+					{...register('value', { required: true })}
+					className={style.input}
+				/>
+				<button type='submit' className={style.button}>
+					Добавить
+				</button>
 
-			<ul>
-				<li>Продукты: {item1} p</li>
-				<li>Вещи: {item2} p</li>
-				<li>Машина: {item3} p</li>
-				<li>Бурундук: {item4} p</li>
-				<li>Бобряша: {item5} p</li>
-				<li>Сулсик: {item6} p</li>
-			</ul>
+				<h3>Список</h3>
+
+				<ul>
+					<li>Я:</li>
+					<li>Машина: .</li>
+					<li>Продукты: data.</li>
+					<li>Жена: data.</li>
+					<li>Дочь: data.</li>
+					<li>Вещи: data.</li>
+				</ul>
+			</form>
 		</div>
 	)
 }

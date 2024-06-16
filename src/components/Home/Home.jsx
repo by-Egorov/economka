@@ -4,7 +4,7 @@ import logo from '../../assets/logo.png'
 import menu from '../../assets/menu.png'
 import Menu from '../../components/Menu/Menu'
 import Content from '../Content/Content'
-const Home = ({ isOpen, openMenu }) => {
+const Home = ({ isOpen, openMenu, user }) => {
 	return (
 		<div className={style.container}>
 			<div className={style.header}>
@@ -17,7 +17,7 @@ const Home = ({ isOpen, openMenu }) => {
 			</div>
 			{isOpen && <Menu isOpen={isOpen} openMenu={openMenu} />}
 
-			<Content/>
+			<Content user={user}/>
 
 			<div className={style.logo}>
 				<img src={myLogo} alt='my logo' />

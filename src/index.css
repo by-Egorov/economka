@@ -17,3 +17,12 @@
 	background: #fff;
 	border-radius: 8px;
 }
+
+.input {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.err {
+	color: red;
+}
