@@ -52,12 +52,10 @@ const Auth = ({user, setUser}) => {
 			})
 			
 			if (response) {
-				console.log(response.data.token)
 				localStorage.setItem('user', JSON.stringify(response.data))
 				localStorage.setItem('token', JSON.stringify(response.data.token))
 				setUser(response.data)
-				console.log(user)
-				// navigate('/')
+				navigate('/')
 			} else {
 				console.warn('Ошибка авторизации')
 			}

@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { $authHost } from '../../axios.js'
 const Content = ({ user }) => {
-	const [selectedArrayName, setSelectedArrayName] = useState('')
+	const [arrayName, setArrayName] = useState('')
+	const [price, setPrice] = useState('')
 	const { register, handleSubmit, reset } = useForm()
 
 	const dataInfo = [
@@ -17,20 +18,24 @@ const Content = ({ user }) => {
 	]
 
 	const handleArrayChange = event => {
-		setSelectedArrayName(event.target.value)
+		setArrayName(event.target.value)
 	}
-	const onSubmit = async formData => {
+	const handleValueChange = event => {
+		setPrice(event.target.value)
+	}
+	const onSubmit = async data => {
 		try {
-			const { value } = formData
-
-			const response = await $host.post(`/data/price/${data._id}`, {
-				arrayName: selectedArrayName,
-				value: parseInt(value, 10), // Преобразуем значение в число
+			const { arrayName, price } = data
+			console.log('Data:', data) // Добавьте эту строку для отладки
+			console.log('Price:', price) // Добавьте эту строку для отладки
+			const response = await $authHost.put('/user/upd', {
+				arrayName,
+				price
 			})
+
 			console.log(response.data)
-			reset()
 		} catch (error) {
-			console.warn(error)
+			console.error('Ошибка при добавлении данных на сервер:', error)
 		}
 	}
 
@@ -96,7 +101,7 @@ const Content = ({ user }) => {
 			},
 		],
 	}
-
+	console.log(user)
 	return (
 		<div className={style.container}>
 			<ReactECharts option={option} className={style.canvas} />
@@ -105,7 +110,7 @@ const Content = ({ user }) => {
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<select
 					{...register('arrayName')}
-					value={selectedArrayName}
+					value={arrayName}
 					onChange={handleArrayChange}
 					className={style.select}
 				>
@@ -121,24 +126,36 @@ const Content = ({ user }) => {
 				<input
 					type='number'
 					placeholder='Введите значение'
-					{...register('value', { required: true })}
+					{...register('price', { required: true })}
 					className={style.input}
+					value={price}
+					onChange={handleValueChange}
 				/>
 				<button type='submit' className={style.button}>
 					Добавить
 				</button>
-
-				<h3>Список</h3>
-
-				<ul>
-					<li>Я:</li>
-					<li>Машина: .</li>
-					<li>Продукты: data.</li>
-					<li>Жена: data.</li>
-					<li>Дочь: data.</li>
-					<li>Вещи: data.</li>
-				</ul>
 			</form>
+			<h3>Список</h3>
+			<ul>
+				Me:
+				{user.me &&
+					user.me.length > 0 &&
+					user.me.map(item => <li key={item._id}>{item.price}</li>)}
+			</ul>
+			<ul>
+				Wife:
+				{user.wife &&
+					user.wife.length > 0 &&
+					user.wife.map(wife => <li key={wife._id}>{wife.price}</li>)}
+			</ul>
+			<ul>
+				Car:
+				{user.car && user.car.length > 0 ? (
+					user.car.map(car => <li key={car._id}>{car.price}</li>)
+				) : (
+					<p>Тут ничего нет</p>
+				)}
+			</ul>
 		</div>
 	)
 }
