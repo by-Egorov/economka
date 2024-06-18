@@ -4,7 +4,6 @@ import Home from './components/Home/Home'
 import About from './components/About/About'
 import Profile from './components/Profile/Profile'
 import Auth from './components/Auth/Auth'
-import axios from 'axios'
 import { $authHost } from './axios'
 const App = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -46,6 +45,7 @@ const App = () => {
 					throw new Error('Токен не найден')
 				}
 				const {data} = await $authHost.get('/user')
+				// const {data} = await $host.get('/user')
 				localStorage.setItem('user', JSON.stringify(data))
 			} catch (error) {
 				console.log(error.response.data)
