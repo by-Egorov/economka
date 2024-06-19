@@ -14,29 +14,6 @@ const App = () => {
 		JSON.parse(localStorage.getItem('user')) || null
 	)
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		try {
-	// 			const token = localStorage.getItem('token')
-	// 			if (!token) {
-	// 				throw new Error('Токен не найден')
-	// 			}
-
-	// 			const response = await $authHost.get('/user', {
-	// 				headers: {
-	// 					Authorization: `Bearer ${token}`,
-	// 				},
-	// 			})
-
-	// 			localStorage.setItem('user', JSON.stringify(response.data))
-	// 			console.log(response.data)
-	// 		} catch (error) {
-	// 			console.warn(error.response ? error.response.data : error.message)
-	// 		}
-	// 	}
-
-	// 	fetchData()
-	// }, [])
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -53,6 +30,7 @@ const App = () => {
 		}
 		fetchData()
 	}, [])
+	console.log(import.meta.env)
 	return (
 		<div className='container'>
 			<Routes>
