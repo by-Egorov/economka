@@ -1,6 +1,6 @@
-import style from './Content.module.scss'
+import './Content.scss'
 import ReactECharts from 'echarts-for-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { $authHost } from '../../axios.js'
 const Content = ({ user }) => {
@@ -30,7 +30,7 @@ const Content = ({ user }) => {
 			console.log('Price:', price) // Добавьте эту строку для отладки
 			const response = await $authHost.put('/user/upd', {
 				arrayName,
-				price
+				price,
 			})
 
 			console.log(response.data)
@@ -38,11 +38,11 @@ const Content = ({ user }) => {
 			console.error('Ошибка при добавлении данных на сервер:', error)
 		}
 	}
-
+console.log(user)
 	const option = {
 		tooltip: {
 			trigger: 'item',
-			formatter: '{b} : {d}%',
+			formatter: `{b} : {d}%`,
 			position: [120, 220],
 			backgroundColor: '#E2E6E4',
 			textStyle: {
@@ -59,10 +59,10 @@ const Content = ({ user }) => {
 			},
 		},
 		legend: {
-			orient: 'vertical',
-			itemGap: 25,
-			left: '-1%',
-			top: '5%',
+			width: 300,
+			itemGap: 20,
+			orient: 'horizontal',
+			top: 'bottom',
 			textStyle: {
 				fontFamily: 'LXGW WenKai TC',
 			},
@@ -73,7 +73,7 @@ const Content = ({ user }) => {
 				name: 'Расходы',
 				type: 'pie',
 				radius: [10, 110],
-				center: ['50%', '50%'],
+				center: ['25%', '50%'],
 				roseType: 'radius',
 				itemStyle: {
 					borderRadius: 8,
@@ -87,7 +87,7 @@ const Content = ({ user }) => {
 					},
 				},
 				data: [
-					{ value: 11, name: 'Продукты' },
+					{ value: 23, name: 'Продукты' },
 					{ value: 12, name: 'Вещи' },
 					{ value: 13, name: 'Машина' },
 					{ value: 14, name: 'Бурундук' },
@@ -96,15 +96,14 @@ const Content = ({ user }) => {
 				],
 				height: '50%',
 				width: '50%',
-				left: '35%',
+				left: '43%',
 				top: '15%',
 			},
 		],
 	}
-	console.log(user)
 	return (
-		<div className={style.container}>
-			<ReactECharts option={option} className={style.canvas} />
+		<div className='container'>
+			<ReactECharts option={option} className='canvas' />
 
 			<h3>Добавить </h3>
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -112,7 +111,7 @@ const Content = ({ user }) => {
 					{...register('arrayName')}
 					value={arrayName}
 					onChange={handleArrayChange}
-					className={style.select}
+					className='select'
 				>
 					<option value='' disabled>
 						Выбрать категорию
@@ -127,11 +126,11 @@ const Content = ({ user }) => {
 					type='number'
 					placeholder='Введите значение'
 					{...register('price', { required: true })}
-					className={style.input}
+					className='input'
 					value={price}
 					onChange={handleValueChange}
 				/>
-				<button type='submit' className={style.button}>
+				<button type='submit' className='button'>
 					Добавить
 				</button>
 			</form>

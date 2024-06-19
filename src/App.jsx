@@ -30,7 +30,6 @@ const App = () => {
 		}
 		fetchData()
 	}, [])
-	console.log(import.meta.env)
 	return (
 		<div className='container'>
 			<Routes>
