@@ -3,9 +3,13 @@ import ReactECharts from 'echarts-for-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { $authHost } from '../../axios.js'
-const Content = ({ user }) => {
+import CategoryList from '../CategoryList/categoryList.jsx'
+
+function Content({ user }) {
 	const [arrayName, setArrayName] = useState('')
 	const [price, setPrice] = useState('')
+	const [me, setMe] = useState(14)
+
 	const { register, handleSubmit, reset } = useForm()
 
 	const dataInfo = [
@@ -23,7 +27,7 @@ const Content = ({ user }) => {
 	const handleValueChange = event => {
 		setPrice(event.target.value)
 	}
-	const onSubmit = async data => {
+	const onSubmit = async (data) => {
 		try {
 			const { arrayName, price } = data
 			console.log('Data:', data) // Добавьте эту строку для отладки
@@ -38,7 +42,7 @@ const Content = ({ user }) => {
 			console.error('Ошибка при добавлении данных на сервер:', error)
 		}
 	}
-console.log(user)
+
 	const option = {
 		tooltip: {
 			trigger: 'item',
@@ -87,12 +91,12 @@ console.log(user)
 					},
 				},
 				data: [
-					{ value: 23, name: 'Продукты' },
-					{ value: 12, name: 'Вещи' },
-					{ value: 13, name: 'Машина' },
-					{ value: 14, name: 'Бурундук' },
-					{ value: 15, name: 'Бобряша' },
-					{ value: 16, name: 'Суслик' },
+					{ value: 11, name: 'Продукты' },
+					{ value: 3, name: 'Вещи' },
+					{ value: 23, name: 'Машина' },
+					{ value: 4, name: 'Бурундук' },
+					{ value: 7, name: 'Бобряша' },
+					{ value: `${me}`, name: 'Суслик' },
 				],
 				height: '50%',
 				width: '50%',
@@ -128,33 +132,18 @@ console.log(user)
 					{...register('price', { required: true })}
 					className='input'
 					value={price}
-					onChange={handleValueChange}
-				/>
+					onChange={handleValueChange} />
 				<button type='submit' className='button'>
 					Добавить
 				</button>
 			</form>
 			<h3>Список</h3>
-			<ul>
-				Me:
-				{user.me &&
-					user.me.length > 0 &&
-					user.me.map(item => <li key={item._id}>{item.price}</li>)}
-			</ul>
-			<ul>
-				Wife:
-				{user.wife &&
-					user.wife.length > 0 &&
-					user.wife.map(wife => <li key={wife._id}>{wife.price}</li>)}
-			</ul>
-			<ul>
-				Car:
-				{user.car && user.car.length > 0 ? (
-					user.car.map(car => <li key={car._id}>{car.price}</li>)
-				) : (
-					<p>Тут ничего нет</p>
-				)}
-			</ul>
+			<CategoryList title='Продукты' items={user.products}/>
+			<CategoryList title='Бобряша' items={user.wife}/>
+			<CategoryList title='Милашка' items={user.daughter}/>
+			<CategoryList title='Машина' items={user.car}/>
+			<CategoryList title='Вещи' items={user.things}/>
+			<CategoryList title='Суслик' items={user.me}/>
 		</div>
 	)
 }
