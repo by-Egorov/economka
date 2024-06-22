@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from './components/Home/Home'
 import About from './components/About/About'
 import Profile from './components/Profile/Profile'
@@ -21,7 +21,7 @@ const App = () => {
 				if (!token) {
 					throw new Error('Токен не найден')
 				}
-				const {data} = await $authHost.get('/user')
+				const { data } = await $authHost.get('/user')
 				localStorage.setItem('user', JSON.stringify(data))
 			} catch (error) {
 				console.log(error.response.data)
@@ -34,7 +34,13 @@ const App = () => {
 			<Routes>
 				<Route
 					path='/'
-					element={<Home isOpen={isOpen} openMenu={openMenu} user={user} />}
+					element={
+						user ? (
+							<Home isOpen={isOpen} openMenu={openMenu} user={user} />
+						) : (
+							<Navigate to='/login' replace />
+						)
+					}
 				/>
 				<Route
 					path='/register'
@@ -47,7 +53,13 @@ const App = () => {
 				/>
 				<Route
 					path='/profile'
-					element={<Profile isOpen={isOpen} openMenu={openMenu} user={user} />}
+					element={
+						user ? (
+							<Profile isOpen={isOpen} openMenu={openMenu} user={user} />
+						) : (
+							<Navigate to='/login' replace />
+						)
+					}
 				/>
 			</Routes>
 		</div>
