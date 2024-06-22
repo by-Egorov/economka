@@ -119,7 +119,8 @@ function Content({ user }) {
 		],
 	}
 	return (
-		<div className='container'>
+	<>
+	{user ? 	<div className='container'>
 			<ReactECharts option={option} className='canvas' />
 
 			<h3>Добавить </h3>
@@ -158,7 +159,10 @@ function Content({ user }) {
 			<CategoryList title='Машина' items={car} />
 			<CategoryList title='Вещи' items={things} />
 			<CategoryList title='Суслик' items={me} />
-		</div>
+		</div> :
+		 <p> please login</p>
+		}
+	</>
 	)
 }
 
