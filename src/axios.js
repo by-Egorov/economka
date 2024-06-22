@@ -1,11 +1,9 @@
 import axios from 'axios'
 const $host = axios.create({
-	baseURL: import.meta.env.VITE_LOCAL_URL,
-	// baseURL: import.meta.env.VITE_API_URL,
+	baseURL: 'http://localhost:5000/api',
 })
 const $authHost = axios.create({
-	baseURL:  import.meta.env.VITE_LOCAL_URL,
-	// baseURL: import.meta.env.VITE_API_URL,
+	baseURL:  'http://localhost:5000/api',
 })
 $authHost.interceptors.request.use(config => {
 	const token = localStorage.getItem('token');

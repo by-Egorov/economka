@@ -22,7 +22,6 @@ const App = () => {
 					throw new Error('Токен не найден')
 				}
 				const {data} = await $authHost.get('/user')
-				// const {data} = await $host.get('/user')
 				localStorage.setItem('user', JSON.stringify(data))
 			} catch (error) {
 				console.log(error.response.data)

@@ -4,12 +4,28 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { $authHost } from '../../axios.js'
 import CategoryList from '../CategoryList/categoryList.jsx'
+import useUserData from '../../useUserData/useUserData.js'
 
 function Content({ user }) {
-	const [arrayName, setArrayName] = useState('')
-	const [price, setPrice] = useState('')
-	const [me, setMe] = useState(14)
-
+	const {
+		me,
+		setMe,
+		car,
+		setCar,
+		wife,
+		setWife,
+		things,
+		setThings,
+		daughter,
+		setDaughter,
+		products,
+		setProducts,
+		arrayName,
+		setArrayName,
+		price,
+		setPrice
+	} = useUserData(user)
+	
 	const { register, handleSubmit, reset } = useForm()
 
 	const dataInfo = [
@@ -27,17 +43,14 @@ function Content({ user }) {
 	const handleValueChange = event => {
 		setPrice(event.target.value)
 	}
-	const onSubmit = async (data) => {
+	const onSubmit = async data => {
 		try {
 			const { arrayName, price } = data
-			console.log('Data:', data) // Добавьте эту строку для отладки
-			console.log('Price:', price) // Добавьте эту строку для отладки
-			const response = await $authHost.put('/user/upd', {
+			await $authHost.put('/user/upd', {
 				arrayName,
-				price,
+				price: parseFloat(price),
 			})
-
-			console.log(response.data)
+			reset()
 		} catch (error) {
 			console.error('Ошибка при добавлении данных на сервер:', error)
 		}
@@ -91,11 +104,11 @@ function Content({ user }) {
 					},
 				},
 				data: [
-					{ value: 11, name: 'Продукты' },
-					{ value: 3, name: 'Вещи' },
-					{ value: 23, name: 'Машина' },
-					{ value: 4, name: 'Бурундук' },
-					{ value: 7, name: 'Бобряша' },
+					{ value: `${products}`, name: 'Продукты' },
+					{ value: `${things}`, name: 'Вещи' },
+					{ value: `${car}`, name: 'Машина' },
+					{ value: `${daughter}`, name: 'Бурундук' },
+					{ value: `${wife}`, name: 'Бобряша' },
 					{ value: `${me}`, name: 'Суслик' },
 				],
 				height: '50%',
@@ -132,18 +145,19 @@ function Content({ user }) {
 					{...register('price', { required: true })}
 					className='input'
 					value={price}
-					onChange={handleValueChange} />
+					onChange={handleValueChange}
+				/>
 				<button type='submit' className='button'>
 					Добавить
 				</button>
 			</form>
 			<h3>Список</h3>
-			<CategoryList title='Продукты' items={user.products}/>
-			<CategoryList title='Бобряша' items={user.wife}/>
-			<CategoryList title='Милашка' items={user.daughter}/>
-			<CategoryList title='Машина' items={user.car}/>
-			<CategoryList title='Вещи' items={user.things}/>
-			<CategoryList title='Суслик' items={user.me}/>
+			<CategoryList title='Продукты' items={products} />
+			<CategoryList title='Бобряша' items={wife} />
+			<CategoryList title='Милашка' items={daughter} />
+			<CategoryList title='Машина' items={car} />
+			<CategoryList title='Вещи' items={things} />
+			<CategoryList title='Суслик' items={me} />
 		</div>
 	)
 }

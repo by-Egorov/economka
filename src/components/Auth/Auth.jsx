@@ -45,7 +45,8 @@ const Auth = ({user, setUser}) => {
 	const login = async data => {
 		try {
 			const { email, password } = data
-
+			console.log(email)
+			console.log(password)
 			const response = await $host.post('/login', {
 				email,
 				password,
