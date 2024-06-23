@@ -7,7 +7,7 @@ import myLogo from '../../assets/my-logo.png'
 import CategoryList from '../CategoryList/CategoryList.jsx'
 import useUserData from '../../useUserData/useUserData.js'
 
-import Box from '@mui/material/Box'
+// Material UI
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
