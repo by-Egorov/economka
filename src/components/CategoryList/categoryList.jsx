@@ -6,7 +6,7 @@ const categoryList = ({title, items, value}) => {
 			<div className={style.title}>{title}:</div>
 			<div className={style.price}>
 			<ul className={style.list}>
-				<li>{items}</li>
+				<li>{items} ₽</li>
 			</ul>
 			</div>
 		</div>
