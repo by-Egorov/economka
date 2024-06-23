@@ -14,21 +14,10 @@ img {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	&__logo {
-		padding: 0 10px;
-	}
-	&__menu {
-		cursor: pointer;
-	}
 }
-
-.logo {
-	position: absolute;
-	right: 0;bottom: 0;
-	opacity: .29;
-	pointer-events: none;
-	& img {
-		width: 130px;
-		height: 55px;
-	}
+.header__logo {
+	padding: 0 10px;
+}
+.header__menu {
+	cursor: pointer;
 }

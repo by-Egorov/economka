@@ -1,10 +1,19 @@
-import './Content.scss'
-import ReactECharts from 'echarts-for-react'
+import style from './Content.module.css'
 import { useState } from 'react'
+import ReactECharts from 'echarts-for-react'
 import { useForm } from 'react-hook-form'
 import { $authHost } from '../../axios.js'
-import CategoryList from '../CategoryList/categoryList.jsx'
+import myLogo from '../../assets/my-logo.png'
+import CategoryList from '../CategoryList/CategoryList.jsx'
 import useUserData from '../../useUserData/useUserData.js'
+
+import Box from '@mui/material/Box'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
 function Content({ user }) {
 	const {
@@ -23,18 +32,18 @@ function Content({ user }) {
 		arrayName,
 		setArrayName,
 		price,
-		setPrice
+		setPrice,
 	} = useUserData(user)
-	
+
 	const { register, handleSubmit, reset } = useForm()
 
 	const dataInfo = [
-		{ value: 'me', displayName: 'Я' },
+		{ value: 'me', displayName: 'Суслик' },
 		{ value: 'products', displayName: 'Продукты' },
 		{ value: 'car', displayName: 'Машина' },
-		{ value: 'wife', displayName: 'Жена' },
+		{ value: 'wife', displayName: 'Бобряша' },
 		{ value: 'things', displayName: 'Вещи' },
-		{ value: 'daughter', displayName: 'Дочь' },
+		{ value: 'daughter', displayName: 'Бурундук' },
 	]
 
 	const handleArrayChange = event => {
@@ -118,51 +127,93 @@ function Content({ user }) {
 			},
 		],
 	}
-	return (
-	<>
-	{user ? 	<div className='container'>
-			<ReactECharts option={option} className='canvas' />
 
-			<h3>Добавить </h3>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<select
-					{...register('arrayName')}
-					value={arrayName}
-					onChange={handleArrayChange}
-					className='select'
-				>
-					<option value='' disabled>
-						Выбрать категорию
-					</option>
-					{dataInfo.map((item, index) => (
-						<option key={index} value={item.value}>
-							{item.displayName}
-						</option>
-					))}
-				</select>
-				<input
-					type='number'
-					placeholder='Введите значение'
-					{...register('price', { required: true })}
-					className='input'
-					value={price}
-					onChange={handleValueChange}
-				/>
-				<button type='submit' className='button'>
-					Добавить
-				</button>
-			</form>
-			<h3>Список</h3>
-			<CategoryList title='Продукты' items={products} />
-			<CategoryList title='Бобряша' items={wife} />
-			<CategoryList title='Милашка' items={daughter} />
-			<CategoryList title='Машина' items={car} />
-			<CategoryList title='Вещи' items={things} />
-			<CategoryList title='Суслик' items={me} />
-		</div> :
-		 <p> please login</p>
-		}
-	</>
+	return (
+		<>
+			{user ? (
+				<div className={style.container}>
+					<ReactECharts option={option} className={style.canvas} />
+
+					<h3>Добавить </h3>
+
+					<FormControl
+						sx={{ m: 1, minWidth: 120, display: 'flex', gap: 2 }}
+						size='small'
+					>
+						<InputLabel id='demo-select-small-label'>Выбрать</InputLabel>
+						<Select
+							{...register('arrayName')}
+							labelId='demo-select-small-label'
+							id='demo-select-small'
+							value={arrayName}
+							label='Выбрать'
+							onChange={handleArrayChange}
+						>
+							<MenuItem value=''>
+								<em>None</em>
+							</MenuItem>
+							{dataInfo.map((item, index) => (
+								<MenuItem key={index} value={item.value}>
+									{item.displayName}
+								</MenuItem>
+							))}
+						</Select>
+
+						<TextField
+							{...register('price', { required: true })}
+							onChange={handleValueChange}
+							value={price}
+							id='outlined-size-small'
+							size='small'
+							label='Цена'
+							variant='outlined'
+							type='number'
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+						<Button
+							sx={{ color: 'green' }}
+							variant='outlined'
+							size='small'
+							onClick={handleSubmit(onSubmit)}
+						>
+							Добавить
+						</Button>
+					</FormControl>
+
+					<div className={style.list_wrapper}>
+						{dataInfo.map(({ value, displayName }) => (
+							<CategoryList
+								key={value}
+								value={value}
+								title={displayName}
+								items={
+									value === 'products'
+										? products
+										: value === 'wife'
+										? wife
+										: value === 'daughter'
+										? daughter
+										: value === 'car'
+										? car
+										: value === 'things'
+										? things
+										: value === 'me'
+										? me
+										: []
+								}
+							/>
+						))}
+					</div>
+					<div className={style.my_logo}>
+						<img src={myLogo} alt='my logo' />
+					</div>
+				</div>
+			) : (
+				<p> please login</p>
+			)}
+		</>
 	)
 }
 
