@@ -13,9 +13,10 @@
 .container {
 	width: 400px;
 	height: 100vh;
+	overflow: auto;
 	margin: 0 auto;
 	background: #fff;
-	border-radius: 8px;
+	padding: 10px 0;
 }
 
 .input {

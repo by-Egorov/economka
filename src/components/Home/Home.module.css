@@ -10,14 +10,22 @@ img {
 }
 
 .header {
-	padding: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding: 10px;
 }
 .header__logo {
 	padding: 0 10px;
 }
 .header__menu {
 	cursor: pointer;
+}
+.my_logo {
+	align-self: end;
+	pointer-events: none;
+}
+.my_logo img {
+	width: 130px;
+	height: 55px;
 }

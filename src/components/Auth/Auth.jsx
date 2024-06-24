@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { $host, $authHost } from '../../axios'
 
-const Auth = ({user, setUser}) => {
+const Auth = ({ user, setUser }) => {
 	const navigate = useNavigate()
 	const {
 		register,
@@ -45,13 +45,11 @@ const Auth = ({user, setUser}) => {
 	const login = async data => {
 		try {
 			const { email, password } = data
-			console.log(email)
-			console.log(password)
 			const response = await $host.post('/login', {
 				email,
 				password,
 			})
-			
+
 			if (response) {
 				localStorage.setItem('user', JSON.stringify(response.data))
 				localStorage.setItem('token', JSON.stringify(response.data.token))

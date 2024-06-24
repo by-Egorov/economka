@@ -1,9 +1,9 @@
 import style from './Content.module.css'
-import { useState } from 'react'
+
 import ReactECharts from 'echarts-for-react'
 import { useForm } from 'react-hook-form'
 import { $authHost } from '../../axios.js'
-import myLogo from '../../assets/my-logo.png'
+
 import CategoryList from '../CategoryList/CategoryList.jsx'
 import useUserData from '../../useUserData/useUserData.js'
 
@@ -205,9 +205,6 @@ function Content({ user }) {
 								}
 							/>
 						))}
-					</div>
-					<div className={style.my_logo}>
-						<img src={myLogo} alt='my logo' />
 					</div>
 				</div>
 			) : (
