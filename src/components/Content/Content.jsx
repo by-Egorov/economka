@@ -7,7 +7,6 @@ import { $authHost } from '../../axios.js'
 import CategoryList from '../CategoryList/CategoryList.jsx'
 import useUserData from '../../useUserData/useUserData.js'
 
-
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
@@ -134,53 +133,62 @@ function Content({ user }) {
 				<div className={style.container}>
 					<ReactECharts option={option} className={style.canvas} />
 
-					<h3>Добавить </h3>
-
-					<FormControl
-						sx={{ m: 1, minWidth: 120, display: 'flex', gap: 2 }}
-						size='small'
-					>
-						<InputLabel id='demo-select-small-label'>Выбрать</InputLabel>
-						<Select
-							{...register('arrayName')}
-							labelId='demo-select-small-label'
-							id='demo-select-small'
-							value={arrayName}
-							label='Выбрать'
-							onChange={handleArrayChange}
-						>
-							<MenuItem value=''>
-								<em>None</em>
-							</MenuItem>
-							{dataInfo.map((item, index) => (
-								<MenuItem key={index} value={item.value}>
-									{item.displayName}
-								</MenuItem>
-							))}
-						</Select>
-
-						<TextField
-							{...register('price', { required: true })}
-							onChange={handleValueChange}
-							value={price}
-							id='outlined-size-small'
-							size='small'
-							label='Цена'
-							variant='outlined'
-							type='number'
-							InputLabelProps={{
-								shrink: true,
-							}}
-						/>
-						<Button
-							sx={{ color: 'green' }}
-							variant='outlined'
-							size='small'
-							onClick={handleSubmit(onSubmit)}
-						>
-							Добавить
-						</Button>
-					</FormControl>
+					<div className={style.form}>
+						<div className={style.select}>
+							<FormControl sx={{ minWidth: 200 }}>
+								<InputLabel id='demo-simple-select-autowidth-label'>
+									Выбрать
+								</InputLabel>
+								<Select
+									{...register('arrayName')}
+									labelId='demo-select-small-label'
+									id='demo-select-small'
+									value={arrayName}
+									label='Выбрать'
+									size='small'
+									onChange={handleArrayChange}
+								>
+									<MenuItem value=''>
+										<em>None</em>
+									</MenuItem>
+									{dataInfo.map((item, index) => (
+										<MenuItem key={index} value={item.value}>
+											{item.displayName}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+						</div>
+						<div className={style.input}>
+							<FormControl sx={{ width: 200 }}>
+								<TextField
+									{...register('price', { required: true })}
+									onChange={handleValueChange}
+									value={price}
+									id='outlined-size-small'
+									size='small'
+									label='Цена'
+									variant='outlined'
+									type='number'
+									InputLabelProps={{
+										shrink: true,
+									}}
+								/>
+							</FormControl>
+						</div>
+						<div className={style.button}>
+							<FormControl sx={{ width: 200 }}>
+								<Button
+									className={style.btn}
+									sx={{ color: 'green' }}
+									variant='outlined'
+									onClick={handleSubmit(onSubmit)}
+								>
+									Добавить
+								</Button>
+							</FormControl>
+						</div>
+					</div>
 
 					<div className={style.list_wrapper}>
 						{dataInfo.map(({ value, displayName }) => (
