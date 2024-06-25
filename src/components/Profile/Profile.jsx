@@ -8,7 +8,7 @@ const Profile = ({user}) => {
 			<Link to='/'>
 				<img src={arrow} alt='arrow' />
 			</Link>
-				<p>{user.email}</p>
+				
 		</div>
 	)
 }

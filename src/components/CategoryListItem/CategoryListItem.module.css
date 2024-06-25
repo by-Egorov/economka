@@ -1,4 +1,4 @@
-.category_list {
+.list__item {
 	width: 100%;
 	padding: 0 25px;
 	display: flex;
@@ -6,7 +6,7 @@
 	justify-content: space-between;
 	position: relative;
 }
-.category_list:after {
+.list__item:after {
 	content: '';
 	position: absolute;
 	top: 12 px;
@@ -17,30 +17,30 @@
 	background: var(--after-bg-color, #000);
 }
 
-.list li {
+.list__item {
 	list-style-type: none;
 }
 
-.category_list.products::after {
+.list__item.products::after {
 	--after-bg-color: rgb(85, 114, 195);
 }
 
-.category_list.wife::after {
+.list__item.wife::after {
 	--after-bg-color: rgb(118, 192, 220);
 }
 
-.category_list.daughter::after {
+.list__item.daughter::after {
 	--after-bg-color: rgb(236, 103, 105);
 }
 
-.category_list.car::after {
+.list__item.car::after {
 	--after-bg-color: rgb(249, 199, 97);
 }
 
-.category_list.things::after {
+.list__item.things::after {
 	--after-bg-color: rgb(147, 203, 121);
 }
 
-.category_list.me::after {
+.list__item.me::after {
 	--after-bg-color: rgb(64, 161, 115);
 }

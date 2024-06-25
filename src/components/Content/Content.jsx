@@ -4,7 +4,7 @@ import ReactECharts from 'echarts-for-react'
 import { useForm } from 'react-hook-form'
 import { $authHost } from '../../axios.js'
 
-import CategoryList from '../CategoryList/CategoryList.jsx'
+import CategoryListItem from '../CategoryListItem/CategoryListItem.jsx'
 import useUserData from '../../useUserData/useUserData.js'
 
 import InputLabel from '@mui/material/InputLabel'
@@ -35,6 +35,7 @@ function Content({ user }) {
 	} = useUserData(user)
 
 	const { register, handleSubmit, reset } = useForm()
+	const name = 'Alex'
 
 	const dataInfo = [
 		{ value: 'me', displayName: 'Суслик' },
@@ -191,28 +192,34 @@ function Content({ user }) {
 					</div>
 
 					<div className={style.list_wrapper}>
-						{dataInfo.map(({ value, displayName }) => (
-							<CategoryList
-								key={value}
-								value={value}
-								title={displayName}
-								items={
-									value === 'products'
-										? products
-										: value === 'wife'
-										? wife
-										: value === 'daughter'
-										? daughter
-										: value === 'car'
-										? car
-										: value === 'things'
-										? things
-										: value === 'me'
-										? me
-										: []
-								}
-							/>
-						))}
+						<div className={`${style.category_list}`}>
+							<ul className={style.list}>
+								{dataInfo.map(({ value, displayName }) => (
+									<li>
+										<CategoryListItem
+											key={value}
+											value={value}
+											title={displayName}
+											items={
+												value === 'products'
+													? products
+													: value === 'wife'
+													? wife
+													: value === 'daughter'
+													? daughter
+													: value === 'car'
+													? car
+													: value === 'things'
+													? things
+													: value === 'me'
+													? me
+													: []
+											}q
+										/>
+									</li>
+								))}
+							</ul>
+						</div>
 					</div>
 				</div>
 			) : (
