@@ -4,12 +4,12 @@ import arrow from '../../assets/arrow-right.png'
 
 const Profile = ({user}) => {
 	return (
-		<div className={style.container}>
+		<li className={style.container}>
 			<Link to='/'>
 				<img src={arrow} alt='arrow' />
 			</Link>
-				
-		</div>
+			
+		</li>
 	)
 }
 

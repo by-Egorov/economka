@@ -130,101 +130,95 @@ function Content({ user }) {
 
 	return (
 		<>
-			{user ? (
-				<div className={style.container}>
-					<ReactECharts option={option} className={style.canvas} />
+			<div className={style.container}>
+				<ReactECharts option={option} className={style.canvas} />
 
-					<div className={style.form}>
-						<div className={style.select}>
-							<FormControl sx={{ minWidth: 200 }}>
-								<InputLabel id='demo-simple-select-autowidth-label'>
-									Выбрать
-								</InputLabel>
-								<Select
-									{...register('arrayName')}
-									labelId='demo-select-small-label'
-									id='demo-select-small'
-									value={arrayName}
-									label='Выбрать'
-									size='small'
-									onChange={handleArrayChange}
-								>
-									<MenuItem value=''>
-										<em>None</em>
+				<div className={style.form}>
+					<div className={style.select}>
+						<FormControl sx={{ minWidth: 200 }}>
+							<InputLabel id='demo-simple-select-autowidth-label'>
+								Выбрать
+							</InputLabel>
+							<Select
+								{...register('arrayName')}
+								labelId='demo-select-small-label'
+								id='demo-select-small'
+								value={arrayName}
+								label='Выбрать'
+								size='small'
+								onChange={handleArrayChange}
+							>
+								<MenuItem value=''>
+									<em>None</em>
+								</MenuItem>
+								{dataInfo.map((item, index) => (
+									<MenuItem key={index} value={item.value}>
+										{item.displayName}
 									</MenuItem>
-									{dataInfo.map((item, index) => (
-										<MenuItem key={index} value={item.value}>
-											{item.displayName}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-						</div>
-						<div className={style.input}>
-							<FormControl sx={{ width: 200 }}>
-								<TextField
-									{...register('price', { required: true })}
-									onChange={handleValueChange}
-									value={price}
-									id='outlined-size-small'
-									size='small'
-									label='Цена'
-									variant='outlined'
-									type='number'
-									InputLabelProps={{
-										shrink: true,
-									}}
-								/>
-							</FormControl>
-						</div>
-						<div className={style.button}>
-							<FormControl sx={{ width: 200 }}>
-								<Button
-									className={style.btn}
-									sx={{ color: 'green' }}
-									variant='outlined'
-									onClick={handleSubmit(onSubmit)}
-								>
-									Добавить
-								</Button>
-							</FormControl>
-						</div>
-					</div>
-
-					<div className={style.list_wrapper}>
-						<div className={`${style.category_list}`}>
-							<ul className={style.list}>
-								{dataInfo.map(({ value, displayName }) => (
-									<li>
-										<CategoryListItem
-											key={value}
-											value={value}
-											title={displayName}
-											items={
-												value === 'products'
-													? products
-													: value === 'wife'
-													? wife
-													: value === 'daughter'
-													? daughter
-													: value === 'car'
-													? car
-													: value === 'things'
-													? things
-													: value === 'me'
-													? me
-													: []
-											}q
-										/>
-									</li>
 								))}
-							</ul>
-						</div>
+							</Select>
+						</FormControl>
+					</div>
+					<div className={style.input}>
+						<FormControl sx={{ width: 200 }}>
+							<TextField
+								{...register('price', { required: true })}
+								onChange={handleValueChange}
+								value={price}
+								id='outlined-size-small'
+								size='small'
+								label='Цена'
+								variant='outlined'
+								type='number'
+								InputLabelProps={{
+									shrink: true,
+								}}
+							/>
+						</FormControl>
+					</div>
+					<div className={style.button}>
+						<FormControl sx={{ width: 200 }}>
+							<Button
+								className={style.btn}
+								sx={{ color: 'green' }}
+								variant='outlined'
+								onClick={handleSubmit(onSubmit)}
+							>
+								Добавить
+							</Button>
+						</FormControl>
 					</div>
 				</div>
-			) : (
-				<p> please login</p>
-			)}
+
+				<div className={style.list_wrapper}>
+					<div className={style.category_list}>
+						<ul className={style.list}>
+							{dataInfo.map(({ value, displayName }) => (
+								<CategoryListItem
+									key={value}
+									value={value}
+									title={displayName}
+									items={
+										value === 'products'
+											? products
+											: value === 'wife'
+											? wife
+											: value === 'daughter'
+											? daughter
+											: value === 'car'
+											? car
+											: value === 'things'
+											? things
+											: value === 'me'
+											? me
+											: []
+									}
+								/>
+							))}
+						</ul>
+					</div>
+				</div>
+			</div>
 		</>
 	)
 }
