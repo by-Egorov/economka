@@ -35,7 +35,6 @@ function Content({ user }) {
 	} = useUserData(user)
 
 	const { register, handleSubmit, reset } = useForm()
-	const name = 'Alex'
 
 	const dataInfo = [
 		{ value: 'me', displayName: 'Суслик' },
@@ -58,6 +57,7 @@ function Content({ user }) {
 			await $authHost.put('/user/upd', {
 				arrayName,
 				price: parseFloat(price),
+				date: new Date(),
 			})
 			reset()
 		} catch (error) {
@@ -127,7 +127,20 @@ function Content({ user }) {
 			},
 		],
 	}
-
+	const formatDate = (date, timeZone = 'Europe/Moscow') => {
+		const options = {
+			year: 'numeric',
+			month: 'long', 
+			day: '2-digit',
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit',
+			hour12: false,
+			timeZone: timeZone,
+		}
+		return new Date(date).toLocaleString('ru-RU', options)
+	}
+	
 	return (
 		<>
 			<div className={style.container}>
