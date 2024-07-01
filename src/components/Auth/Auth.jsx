@@ -80,12 +80,6 @@ const Auth = ({ user, setUser }) => {
 		}
 	}
 
-	const onSubmit = data => {
-		console.log(data)
-		reset()
-		navigate('/')
-	}
-
 	return (
 		<>
 			<form>

@@ -1,5 +1,5 @@
 import style from './Content.module.css'
-
+import { useState, useEffect } from 'react'
 import ReactECharts from 'echarts-for-react'
 import { useForm } from 'react-hook-form'
 import { $authHost } from '../../axios.js'
@@ -35,6 +35,44 @@ function Content({ user }) {
 	} = useUserData(user)
 
 	const { register, handleSubmit, reset } = useForm()
+	const [isLoading, setIsLoading] = useState(false)
+
+	const onSubmit = async data => {
+		try {
+			setIsLoading(true)
+			const { arrayName, price } = data
+			await $authHost.put('/user/upd', {
+				arrayName,
+				price: parseFloat(price),
+				date: new Date(),
+			})
+			reset({
+				arrayName: '',
+				price: '',
+			})
+			console.log('ok')
+		} catch (error) {
+			console.error('Ошибка при добавлении данных на сервер:', error)
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const token = localStorage.getItem('token')
+				if (!token) {
+					throw new Error('Токен не найден')
+				}
+				const { data } = await $authHost.get('/user')
+				localStorage.setItem('user', JSON.stringify(data))
+			} catch (error) {
+				console.log(error.response.data)
+			}
+		}
+		fetchData()
+	}, [])
 
 	const dataInfo = [
 		{ value: 'me', displayName: 'Суслик' },
@@ -50,19 +88,6 @@ function Content({ user }) {
 	}
 	const handleValueChange = event => {
 		setPrice(event.target.value)
-	}
-	const onSubmit = async data => {
-		try {
-			const { arrayName, price } = data
-			await $authHost.put('/user/upd', {
-				arrayName,
-				price: parseFloat(price),
-				date: new Date(),
-			})
-			reset()
-		} catch (error) {
-			console.error('Ошибка при добавлении данных на сервер:', error)
-		}
 	}
 
 	const option = {
@@ -127,20 +152,20 @@ function Content({ user }) {
 			},
 		],
 	}
-	const formatDate = (date, timeZone = 'Europe/Moscow') => {
-		const options = {
-			year: 'numeric',
-			month: 'long', 
-			day: '2-digit',
-			hour: '2-digit',
-			minute: '2-digit',
-			second: '2-digit',
-			hour12: false,
-			timeZone: timeZone,
-		}
-		return new Date(date).toLocaleString('ru-RU', options)
-	}
-	
+	// const formatDate = (date, timeZone = 'Europe/Moscow') => {
+	// 	const options = {
+	// 		year: 'numeric',
+	// 		month: 'long',
+	// 		day: '2-digit',
+	// 		hour: '2-digit',
+	// 		minute: '2-digit',
+	// 		second: '2-digit',
+	// 		hour12: false,
+	// 		timeZone: timeZone,
+	// 	}
+	// 	return new Date(date).toLocaleString('ru-RU', options)
+	// }
+
 	return (
 		<>
 			<div className={style.container}>
@@ -204,32 +229,40 @@ function Content({ user }) {
 				</div>
 
 				<div className={style.list_wrapper}>
-					<div className={style.category_list}>
-						<ul className={style.list}>
-							{dataInfo.map(({ value, displayName }) => (
-								<CategoryListItem
-									key={value}
-									value={value}
-									title={displayName}
-									items={
-										value === 'products'
-											? products
-											: value === 'wife'
-											? wife
-											: value === 'daughter'
-											? daughter
-											: value === 'car'
-											? car
-											: value === 'things'
-											? things
-											: value === 'me'
-											? me
-											: []
-									}
-								/>
-							))}
-						</ul>
-					</div>
+					{isLoading ? (
+						<>
+							<p> Идет загрузка ... </p>
+						</>
+					) : (
+						<>
+							<div className={style.category_list}>
+								<ul className={style.list}>
+									{dataInfo.map(({ value, displayName }) => (
+										<CategoryListItem
+											key={value}
+											value={value}
+											title={displayName}
+											items={
+												value === 'products'
+													? products
+													: value === 'wife'
+													? wife
+													: value === 'daughter'
+													? daughter
+													: value === 'car'
+													? car
+													: value === 'things'
+													? things
+													: value === 'me'
+													? me
+													: []
+											}
+										/>
+									))}
+								</ul>
+							</div>
+						</>
+					)}
 				</div>
 			</div>
 		</>

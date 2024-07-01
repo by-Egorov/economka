@@ -1,11 +1,11 @@
 import axios from 'axios'
 const $host = axios.create({
-	// baseURL: 'http://localhost:5000/api',
-	baseURL: 'https://economka-server.onrender.com/api',
+	// baseURL: 'http://localhost:5000/ap
+	baseURL: 'https://economka-server.onrender.com/ap
 })
 const $authHost = axios.create({
-	// baseURL:  'http://localhost:5000/api',
-	baseURL:  'https://economka-server.onrender.com/api',
+	// baseURL:  'http://localhost:5000/ap
+	baseURL:  'https://economka-server.onrender.com/ap
 })
 $authHost.interceptors.request.use(config => {
 	const token = localStorage.getItem('token');
